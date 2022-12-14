@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: fact_github_user
+    description: This table contains a superset of github users and your principal metrics
+    columns:
+      - name: id_user
+        description: Uniquely identifies a github user
+        tests:
+          - not_null
+          - unique
+      - name: total_repositories
+        tests:
+          - not_null
+      - name: total_private_repositories
+        tests:
+          - not_null
+      - name: total_public_repositories
+        tests:
+          - not_null
+      - name: total_archived_repositories
+        tests:
+          - not_null
+      - name: total_fork_repositories
+        tests:
+          - not_null
+      - name: total_programing_languages
+        tests:
+          - not_null
+      - name: first_repository_created_at
+        tests:
+          - not_null
+      - name: last_repository_created_at
+        tests:
+          - not_null
+      - name: user_created_at
+        tests:
+          - not_null
+      - name: user_updated_at
+        tests:
+          - not_null
