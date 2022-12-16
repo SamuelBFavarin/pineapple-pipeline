@@ -3,5 +3,7 @@ version: 2
 sources:
   - name: raw_github
     tables:
+      - name: commit
       - name: repository
       - name: user
+      - name: user_email
