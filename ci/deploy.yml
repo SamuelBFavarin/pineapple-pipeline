@@ -1,0 +1,48 @@
+steps:
+    - name: gcr.io/cloud-builders/docker
+      args:
+          - "build"
+          - "-t"
+          - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
+          - "--file=Dockerfile"
+          - .
+      timeout: 1200s
+      id: Build Image
+    - name: gcr.io/cloud-builders/docker
+      args:
+          - push
+          - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
+      id: Push Image to Registry
+    - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+      args:
+          - run
+          - services
+          - update
+          - $_ENV_PREFIX-$_SERVICE_NAME
+          - "--platform=managed"
+          - "--image=$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
+          - "--project=$_DEPLOY_PROJECT_ID"
+          - "--service-account=$_SERVICE_ACCOUNT"
+          - >-
+              --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,service-name=data-pipeline-ci
+          - "--region=$_DEPLOY_REGION"
+          - "--quiet"
+      id: Deploy Image to Cloud Run Development
+      entrypoint: gcloud
+timeout: 1800s
+images:
+    - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
+options:
+    substitutionOption: ALLOW_LOOSE
+substitutions:
+    _GCR_HOSTNAME: gcr.io
+    _SERVICE_NAME: data-pipeline-ci
+    _SERVICE_ACCOUNT: placeholder
+    _DEPLOY_REGION: us-east4
+    _ENV_PREFIX: "dev"
+    _PAPER_BUILD_PROJECT_ID: "pineapple-pipeline"
+    _DEPLOY_PROJECT_ID: "dev-pineapple-pipeline"
+tags:
+    - gcp-cloud-build-deploy-cloud-run
+    - gcp-cloud-build-deploy-cloud-run-managed
+    - pubsub-random-event-generator
