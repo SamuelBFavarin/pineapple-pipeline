@@ -34,8 +34,9 @@ user_commit_metrics AS (
   GROUP BY u.id
 )
 
+-- final sql
 SELECT 
-  u.id AS id_user,
+  u.id AS id_user, 
   urm.total_repositories,
   urm.total_private_repositories,
   urm.total_public_repositories,
