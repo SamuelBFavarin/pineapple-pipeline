@@ -1,6 +1,6 @@
 FROM python:3.10.6-slim
 
-LABEL Pineaple Squad
+LABEL Pineapple Squad
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
