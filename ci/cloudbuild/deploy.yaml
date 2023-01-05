@@ -4,7 +4,7 @@ steps:
           - "build"
           - "-t"
           - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
-          - "--file=./Dockerfile"
+          - "--file=./ci/Dockerfile"
           - .
       timeout: 1200s
       id: Build Image
