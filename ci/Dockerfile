@@ -20,7 +20,7 @@ ENV POETRY_VERSION=1.1.15
 WORKDIR /ci/
 
 # Install requirements
-COPY pyproject.toml poetry.lock /ci/
+COPY pyproject.toml /ci/
 
 # Add credentials for  library
 RUN apt-get -yq update \

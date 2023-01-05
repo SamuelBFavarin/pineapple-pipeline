@@ -6,7 +6,7 @@ WORKDIR /app
 RUN pip install --upgrade pip && pip install poetry
 
 # Install requirements
-COPY pyproject.toml poetry.lock /app/
+COPY pyproject.toml /app/
 
 # Add credentials for paperlabs library
 RUN apt-get -yq update \
