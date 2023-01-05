@@ -40,7 +40,7 @@ substitutions:
     _SERVICE_ACCOUNT: placeholder
     _DEPLOY_REGION: us-east4
     _ENV_PREFIX: "dev"
-    _PAPER_BUILD_PROJECT_ID: "pineapple-pipeline"
+    _PAPER_BUILD_PROJECT_ID: "prod-pineapple-pipeline"
     _DEPLOY_PROJECT_ID: "dev-pineapple-pipeline"
 tags:
     - gcp-cloud-build-deploy-cloud-run
