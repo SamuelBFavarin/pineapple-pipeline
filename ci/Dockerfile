@@ -35,7 +35,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 
 
 RUN poetry export --extras ci --without-hashes -f requirements.txt --output /ci/requirements.txt
-RUN --mount=type=ssh pip install --no-cache-dir -r /ci/requirements.txt
+RUN pip install --no-cache-dir -r /ci/requirements.txt
 
 WORKDIR /ci/
 ENV PYTHONPATH=/
