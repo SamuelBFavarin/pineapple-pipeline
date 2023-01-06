@@ -11,8 +11,6 @@ steps:
     - name: gcr.io/cloud-builders/docker
       args:
         - "run" 
-        - "--entrypoint="
-        - "dbt --version"
         - "-t"
         - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
 timeout: 1800s
