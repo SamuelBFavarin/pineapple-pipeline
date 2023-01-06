@@ -40,9 +40,9 @@ RUN pip install --no-cache-dir -r /ci/requirements.txt
 WORKDIR /ci/
 ENV PYTHONPATH=/
 COPY ./ci /ci/
-ENV PORT 8080
+ENV PORT 9444
 
 EXPOSE ${PORT}
 
 ENTRYPOINT /ci/docker-entrypoint.sh $0 $@
-CMD ["streamlit", "run", "Seeder.py", "--server.enableCORS=false", "--server.port=8080", "--server.headless=true"]
+CMD ["streamlit", "run", "Seeder.py", "--server.enableCORS=false", "--server.port=9444", "--server.headless=true"]
