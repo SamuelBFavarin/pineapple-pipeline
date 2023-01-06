@@ -13,6 +13,10 @@ steps:
           - push
           - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
       id: Push Image to Registry
+    - name: 'gcr.io/cloud-builders/docker'
+      args: ['pull', 'docker/dockerfile:experimental']
+    - name: 'gcr.io/cloud-builders/docker'
+      args: ['pull', 'docker/dockerfile:1.0-experimental']
     - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
       args:
           - run
