@@ -41,10 +41,8 @@ WORKDIR /ci/
 ENV PYTHONPATH=/
 COPY ./ci /ci/
 ENV PORT 8080
-ENV HOST 0.0.0.0
 
 EXPOSE ${PORT}
-EXPOSE ${HOST}
 
 ENTRYPOINT /ci/docker-entrypoint.sh $0 $@
 CMD ["streamlit", "run", "Seeder.py", "--server.enableCORS=false", "--server.port=8080", "--server.headless=true"]
