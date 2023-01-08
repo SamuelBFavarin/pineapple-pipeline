@@ -1,7 +1,7 @@
 # For more information on how to configure this file, please see:
 # https://docs.getdbt.com/docs/profile
 
-paper_dbt: # this needs to match the profile: in your dbt_project.yml file
+ci: # this needs to match the profile: in your dbt_project.yml file
     target: ci
     outputs:
         ci:
