@@ -11,7 +11,7 @@ ci: # this needs to match the profile: in your dbt_project.yml file
             dataset: "{{ env_var('DBT_DEFAULT_DATASET', 'dbt_ci') }}" # Replace this with dbt_your_name, e.g. dbt_bob
             threads: 4
             timeout_seconds: 600
-            location: us-east4
+            location: US
             priority: interactive
             keyfile_json:
               type: "service_account"

@@ -22,10 +22,7 @@ substitutions:
     _GCR_HOSTNAME: gcr.io
     _SERVICE_NAME: data-pipeline-ci
     _SERVICE_ACCOUNT: dbt-ci-service-account@dev-pineapple-pipeline.iam.gserviceaccount.com
-    _DEPLOY_REGION: us-east4
-    _ENV_PREFIX: "dev"
     _PAPER_BUILD_PROJECT_ID: "dev-pineapple-pipeline"
-    _DEPLOY_PROJECT_ID: "dev-pineapple-pipeline"
 tags:
     - gcp-cloud-build-deploy-cloud-run
     - gcp-cloud-build-deploy-cloud-run-managed
