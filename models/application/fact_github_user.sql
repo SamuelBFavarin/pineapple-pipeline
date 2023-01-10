@@ -1,5 +1,7 @@
 {{ 
-    config(materialized='table') 
+    config(
+        materialized='table', 
+        tags=['daily']) 
 }}
 
 WITH user_repo_metrics AS (

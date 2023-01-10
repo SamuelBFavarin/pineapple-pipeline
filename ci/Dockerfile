@@ -20,7 +20,7 @@ ENV POETRY_VERSION=1.1.15
 WORKDIR /ci/
 
 # Install requirements
-COPY pyproject.toml poetry.lock /ci/
+COPY pyproject.toml /ci/
 
 # Add credentials for  library
 RUN apt-get -yq update \
@@ -35,13 +35,14 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 
 
 RUN poetry export --extras ci --without-hashes -f requirements.txt --output /ci/requirements.txt
-RUN --mount=type=ssh pip install --no-cache-dir -r /ci/requirements.txt
+RUN pip install --no-cache-dir -r /ci/requirements.txt
 
 WORKDIR /ci/
 ENV PYTHONPATH=/
 COPY ./ci /ci/
-ENV PORT 8080
+ENV PORT 9444
 
 EXPOSE ${PORT}
+
 ENTRYPOINT /ci/docker-entrypoint.sh $0 $@
-CMD ["streamlit", "run", "Seeder.py", "--server.enableCORS=false", "--server.port=8080", "--server.headless=true"]
+CMD ["streamlit", "run", "Seeder.py", "--server.enableCORS=false", "--server.port=9444", "--server.headless=true"]
