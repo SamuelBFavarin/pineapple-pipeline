@@ -19,4 +19,4 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY . /app/
 
-ENTRYPOINT ["dbt", "build", "--select", "state:modified", "tag:daily"]
+ENTRYPOINT ["dbt", "build", "--select", "tag:daily"]
