@@ -22,5 +22,3 @@ COPY . /app/
 
 RUN chmod +x ./get_manifest.sh
 ENTRYPOINT ./get_manifest.sh
-
-ENTRYPOINT "dbt build --select tag:daily --defer --state ./"

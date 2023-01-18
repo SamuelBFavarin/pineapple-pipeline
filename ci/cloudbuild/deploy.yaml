@@ -13,6 +13,15 @@ steps:
         - "run" 
         - "-t"
         - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
+    - name: gcr.io/cloud-builders/docker
+      args:
+        - "dbt"
+        - "build"
+        - "--select"
+        - "tag:daily"
+        - "--defer"
+        - "--state"
+        - "./"
 timeout: 1800s
 images:
     - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
