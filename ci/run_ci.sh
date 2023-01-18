@@ -27,8 +27,9 @@ echo "----------------------------------------------"
 echo "Starting the dbt test execution"
 echo "----------------------------------------------"
 
-dbt run --select fact_github_user --defer --state ./
-dbt test --select fact_channel --defer --state ./
+
+dbt run --target=ci -s "+state:modified+1 1+exposure:*,+state:modified+" --defer --state ./
+dbt test --target=ci -s "+state:modified+1 1+exposure:*,+state:modified+" --defer --state ./
 
 
 echo "All tests finished"
