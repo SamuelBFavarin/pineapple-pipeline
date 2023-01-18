@@ -20,5 +20,5 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY . /app/
 
-RUN chmod +x ./get_manifest.sh
-ENTRYPOINT ./get_manifest.sh
+RUN chmod +x ./ci/run_ci.sh
+ENTRYPOINT ./ci/run_ci.sh

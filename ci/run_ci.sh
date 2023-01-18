@@ -22,4 +22,14 @@ account_id=10829
 #  --header 'Authorization: Token <your-token>' >> /app/manifest.json
 
 echo "MANIFEST.JSON GENERATED" 
+echo "----------------------------------------------"
 
+echo "Starting the dbt test execution"
+echo "----------------------------------------------"
+
+dbt run --select fact_github_user --defer --state ./
+dbt test --select fact_channel --defer --state ./
+
+
+echo "All tests finished"
+echo "----------------------------------------------"
