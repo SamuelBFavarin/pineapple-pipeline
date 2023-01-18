@@ -1,8 +1,3 @@
-{{ 
-    config(
-        materialized='table', 
-        tags=['not-run']) 
-}}
 
 def model(dbt, session):
 
