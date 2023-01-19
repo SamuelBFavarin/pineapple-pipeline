@@ -6,4 +6,5 @@ services:
         environment:
             - ENV_NAME=dev
             - DBT_PROJECT=dev-pineapple-pipeline
+            - DBT_DEFAULT_DATASET=application
             - DBT_PROFILES_DIR=/app/

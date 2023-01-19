@@ -28,8 +28,8 @@ echo "Starting the dbt test execution"
 echo "----------------------------------------------"
 
 
-dbt run --target=ci -s "+state:modified+1 1+exposure:*,+state:modified+" --defer --state ./
-dbt test --target=ci -s "+state:modified+1 1+exposure:*,+state:modified+" --defer --state ./
+dbt run --defer --state ./
+dbt test --defer --state ./
 
 
 echo "All tests finished"
