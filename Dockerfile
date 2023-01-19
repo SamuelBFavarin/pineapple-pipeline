@@ -18,6 +18,12 @@ RUN apt-get -yq update \
 RUN poetry export --extras dbt --without-hashes -f requirements.txt --output /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
+
+ENV ENV_NAME=dev
+ENV DBT_PROJECT=dev-pineapple-pipeline
+ENV DBT_DEFAULT_DATASET=application
+ENV DBT_PROFILES_DIR=/app/
+
 COPY . /app/
 
 RUN chmod +x ./ci/run_ci.sh
