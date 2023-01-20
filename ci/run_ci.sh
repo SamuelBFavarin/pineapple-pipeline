@@ -26,7 +26,6 @@ echo "----------------------------------------------"
 
 echo "DBT METADATA API TOKEN"
 echo $DBT_METADATA_API_TOKEN
-echo ${DBT_METADATA_API_TOKEN}
 echo "----------------------------------------------"
 
 echo "Starting the dbt test execution"
