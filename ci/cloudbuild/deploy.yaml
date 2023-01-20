@@ -1,13 +1,8 @@
 steps:
-    - name: gcr.io/cloud-builders/gcloud
+    - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: [ "export DBT_PRIVATE_KEY_ID=$(gcloud secrets versions access 1 --secret=dbt_private_key_id)" ]
-    - name: gcr.io/cloud-builders/gcloud
-      entrypoint: 'bash'
-      args: [ "export DBT_PRIVATE_KEY=$(gcloud secrets versions access 1 --secret=dbt_private_key)" ]
-    - name: gcr.io/cloud-builders/gcloud
-      entrypoint: 'bash'
-      args: [ "export DBT_METADATA_API_TOKEN=$(gcloud secrets versions access 1 --secret=dbt_metadata_api_token)" ]
+      args: ['-c', 'echo DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID && echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY && echo DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN']
+      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
     - name: gcr.io/cloud-builders/docker
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
       args:
