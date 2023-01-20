@@ -24,6 +24,10 @@ account_id=10829
 echo "MANIFEST.JSON GENERATED" 
 echo "----------------------------------------------"
 
+echo "DBT METADATA API TOKEN"
+echo $DBT_METADATA_API_TOKEN
+echo "----------------------------------------------"
+
 echo "Starting the dbt test execution"
 echo "----------------------------------------------"
 
