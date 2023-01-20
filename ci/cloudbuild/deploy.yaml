@@ -29,5 +29,5 @@ availableSecrets:
   secretManager:
   - versionName: projects/974000444247/secrets/dbt_private_key_id/versions/1
     env: 'DBT_PRIVATE_KEY_ID'
-  - versionName: projects/974000444247/secrets/dbt_private_key/versions/1
+  - versionName: projects/974000444247/secrets/dbt_private_key/versions/2
     env: 'DBT_PRIVATE_KEY' 
