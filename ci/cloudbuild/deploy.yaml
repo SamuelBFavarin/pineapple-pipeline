@@ -1,5 +1,6 @@
 steps:
     - name: gcr.io/cloud-builders/docker
+      secretEnv: ['DBT_PRIVATE_KEY_ID']
       args:
           - "build"
           - "-t"
@@ -9,6 +10,7 @@ steps:
       timeout: 1200s
       id: Build Image
     - name: gcr.io/cloud-builders/docker
+      secretEnv: ['DBT_PRIVATE_KEY_ID']
       args:
         - "run" 
         - "-t"
@@ -23,7 +25,7 @@ substitutions:
     _SERVICE_NAME: data-pipeline-ci
     _SERVICE_ACCOUNT: dbt-ci-service-account@dev-pineapple-pipeline.iam.gserviceaccount.com
     _PAPER_BUILD_PROJECT_ID: "dev-pineapple-pipeline"
-tags:
-    - gcp-cloud-build-deploy-cloud-run
-    - gcp-cloud-build-deploy-cloud-run-managed
-    - pubsub-random-event-generator
+availableSecrets:
+  secretManager:
+  - versionName: projects/974000444247/secrets/dbt_private_key_id/versions/1
+    env: 'DBT_PRIVATE_KEY_ID'
