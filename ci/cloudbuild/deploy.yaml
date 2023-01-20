@@ -7,6 +7,8 @@ steps:
           - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
           - "--file=./Dockerfile"
           - .
+          - "--progress=plain" 
+          - "--no-cache"
       timeout: 1200s
       id: Build Image
     - name: gcr.io/cloud-builders/docker
@@ -29,7 +31,7 @@ availableSecrets:
   secretManager:
   - versionName: projects/974000444247/secrets/dbt_private_key_id/versions/1
     env: 'DBT_PRIVATE_KEY_ID'
-  - versionName: projects/974000444247/secrets/dbt_private_key/versions/1
+  - versionName: projects/974000444247/secrets/dbt_private_key/versions/3
     env: 'DBT_PRIVATE_KEY' 
   - versionName: projects/974000444247/secrets/dbt_metadata_api_token/versions/1
     env: 'DBT_METADATA_API_TOKEN'
