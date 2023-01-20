@@ -1,4 +1,13 @@
 steps:
+    - name: gcr.io/cloud-builders/gcloud
+      entrypoint: 'bash'
+      args: [ "export DBT_PRIVATE_KEY_ID=$(gcloud secrets versions access 1 --secret=dbt_private_key_id)" ]
+    - name: gcr.io/cloud-builders/gcloud
+      entrypoint: 'bash'
+      args: [ "export DBT_PRIVATE_KEY=$(gcloud secrets versions access 1 --secret=dbt_private_key)" ]
+    - name: gcr.io/cloud-builders/gcloud
+      entrypoint: 'bash'
+      args: [ "export DBT_METADATA_API_TOKEN=$(gcloud secrets versions access 1 --secret=dbt_metadata_api_token)" ]
     - name: gcr.io/cloud-builders/docker
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
       args:
@@ -7,8 +16,6 @@ steps:
           - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
           - "--file=./Dockerfile"
           - .
-          - "--progress=plain" 
-          - "--no-cache"
       timeout: 1200s
       id: Build Image
     - name: gcr.io/cloud-builders/docker
