@@ -5,7 +5,10 @@ steps:
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
     - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: ['-c', ". ./cloudbuilds/set_secrets.sh $$DBT_PRIVATE_KEY_ID $$DBT_PRIVATE_KEY $$DBT_METADATA_API_TOKEN"]
+      args: ['-c', "ls"]
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', "./set_secrets.sh $$DBT_PRIVATE_KEY_ID $$DBT_PRIVATE_KEY $$DBT_METADATA_API_TOKEN"]
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
     - name: gcr.io/cloud-builders/docker
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
