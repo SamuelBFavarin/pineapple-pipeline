@@ -1,6 +1,6 @@
 steps:
     - name: gcr.io/cloud-builders/docker
-      secretEnv: ['DBT_PRIVATE_KEY_ID']
+      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY']
       args:
           - "build"
           - "-t"
@@ -10,7 +10,7 @@ steps:
       timeout: 1200s
       id: Build Image
     - name: gcr.io/cloud-builders/docker
-      secretEnv: ['DBT_PRIVATE_KEY_ID']
+      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY']
       args:
         - "run" 
         - "-t"
@@ -29,3 +29,5 @@ availableSecrets:
   secretManager:
   - versionName: projects/974000444247/secrets/dbt_private_key_id/versions/1
     env: 'DBT_PRIVATE_KEY_ID'
+  - versionName: projects/974000444247/secrets/dbt_private_key/versions/1
+    env: 'DBT_PRIVATE_KEY' 
