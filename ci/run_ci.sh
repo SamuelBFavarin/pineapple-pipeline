@@ -30,7 +30,8 @@ echo "----------------------------------------------"
 
 echo "Starting the dbt test execution"
 echo "----------------------------------------------"
-echo ${DBT_PRIVATE_KEY}
+echo "${DBT_PRIVATE_KEY}"
+echo $$DBT_PRIVATE_KEY
 
 
 dbt run --defer --state ./
