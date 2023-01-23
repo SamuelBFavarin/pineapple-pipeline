@@ -25,12 +25,14 @@ echo "MANIFEST.JSON GENERATED"
 echo "----------------------------------------------"
 
 echo "PRINT ENVS"
-echo "${DBT_PRIVATE_KEY_ID}"
-echo "${DBT_PRIVATE_KEY}"
 echo "${DBT_METADATA_API_TOKEN}"
 echo "${DBT_BQ_CREDENTIALS}"
-
 echo "----------------------------------------------"
+
+echo "Check dbt debug"
+echo "----------------------------------------------"
+
+dbt debug
 
 echo "Starting the dbt test execution"
 echo "----------------------------------------------"
@@ -41,8 +43,3 @@ dbt test --defer --state ./
 
 echo "All tests finished"
 echo "----------------------------------------------"
-
-echo "Check dbt debug"
-echo "----------------------------------------------"
-
-dbt debug
