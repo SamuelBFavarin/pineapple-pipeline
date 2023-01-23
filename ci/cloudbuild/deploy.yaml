@@ -4,15 +4,6 @@ steps:
       args: ['-c', 'echo DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID && echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY && echo DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN']
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
 
-    - name: 'gcr.io/cloud-builders/docker'
-      entrypoint: 'bash'
-      args: ['-c', "chmod +x ./ci/set_secrets.sh"]
-
-    - name: 'gcr.io/cloud-builders/docker'
-      entrypoint: 'bash'
-      args: ['-c', "./ci/set_secrets.sh $$DBT_PRIVATE_KEY_ID $$DBT_PRIVATE_KEY $$DBT_METADATA_API_TOKEN"]
-      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
-
     - name: gcr.io/cloud-builders/docker
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
       args: 
@@ -25,8 +16,9 @@ steps:
       id: Build Image
 
     - name: gcr.io/cloud-builders/docker
+      entrypoint: 'bash'
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
-      args: ["-c", "docker run --env DBT_METADATA_API_TOKEN=${DBT_METADATA_API_TOKEN} -t $_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"]
+      args: ["-c", "docker run --env DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN -t $_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"]
 
 timeout: 1800s
 images:
