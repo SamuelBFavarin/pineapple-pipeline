@@ -16,7 +16,7 @@ pineapple_dbt: # this needs to match the profile: in your dbt_project.yml file
             keyfile_json:
               type: "service_account"
               project_id: "dev-pineapple-pipeline"
-              private_key: "{{ env_var('DBT_PRIVATE_KEY') | as_text }}"
+              private_key: "{{ env_var('DBT_PRIVATE_KEY') }}"
               client_email: "dbt-ci-service-account@dev-pineapple-pipeline.iam.gserviceaccount.com"
               client_id: "101217784114309276515"
               auth_uri: "https://accounts.google.com/o/oauth2/auth"
