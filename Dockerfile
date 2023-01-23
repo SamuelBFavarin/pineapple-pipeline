@@ -27,9 +27,6 @@ ENV DBT_PRIVATE_KEY_ID=your-private-key-id
 ENV DBT_PRIVATE_KEY=your-private-key
 ENV DBT_METADATA_API_TOKEN=your-token
 
-RUN echo $DBT_METADATA_API_TOKEN
-RUN echo $DBT_PRIVATE_KEY
-
 COPY . /app/
 
 RUN chmod +x ./ci/run_ci.sh 

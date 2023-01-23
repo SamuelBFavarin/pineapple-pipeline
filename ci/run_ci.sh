@@ -24,16 +24,15 @@ account_id=10829
 echo "MANIFEST.JSON GENERATED" 
 echo "----------------------------------------------"
 
-echo "DBT METADATA API TOKEN"
-echo $DBT_METADATA_API_TOKEN
-echo $DBT_PRIVATE_KEY
+echo "PRINT ENVS"
+echo "${DBT_PRIVATE_KEY_ID}"
+echo "${DBT_PRIVATE_KEY}"
+echo "${DBT_METADATA_API_TOKEN}"
+
 echo "----------------------------------------------"
 
 echo "Starting the dbt test execution"
 echo "----------------------------------------------"
-echo "${DBT_PRIVATE_KEY}"
-echo $$DBT_PRIVATE_KEY
-
 
 dbt run --defer --state ./
 dbt test --defer --state ./
