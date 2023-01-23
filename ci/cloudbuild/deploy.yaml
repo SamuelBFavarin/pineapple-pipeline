@@ -8,6 +8,8 @@ steps:
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
       args: 
           - "build"
+          - "-t"
+          - "ci_image"
           - "--file=./Dockerfile"
           - .     
       timeout: 1200s
@@ -16,11 +18,11 @@ steps:
     - name: gcr.io/cloud-builders/docker
       entrypoint: 'bash'
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
-      args: ["-c", "docker run --env DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID"]
+      args: ["-c", "docker run --env DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID -t ci_image"]
 
 timeout: 1800s
 images:
-    - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
+    - "ci_image"
 options:
     substitutionOption: ALLOW_LOOSE
 substitutions:
