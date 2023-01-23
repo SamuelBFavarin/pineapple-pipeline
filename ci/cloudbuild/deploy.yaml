@@ -17,7 +17,7 @@ steps:
 
     - name: gcr.io/cloud-builders/docker
       entrypoint: 'bash'
-      args: ["-c", "run --env DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID --env DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY -env DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN -t gcr.io/dev-pineapple-pipeline/pineapple-pipeline/data-pipeline-ci:4a0fa9b --file=./Dockerfile ."]
+      args: ["-c", "docker run --env DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID --env DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY -env DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN -t gcr.io/dev-pineapple-pipeline/pineapple-pipeline/data-pipeline-ci:4a0fa9b --file=./Dockerfile ."]
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
 
 timeout: 1800s
