@@ -11,7 +11,12 @@ steps:
    
     - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: ['-c', 'echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY >> .dbt_private_key']
+      args: ['-c', 'echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY | sed 's/\\n/\n/g' >> .dbt_private_key']
+      secretEnv: ['DBT_PRIVATE_KEY']
+
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'cat .dbt_private_key']
       secretEnv: ['DBT_PRIVATE_KEY']
 
     - name: gcr.io/cloud-builders/docker
