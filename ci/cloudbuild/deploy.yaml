@@ -11,8 +11,7 @@ steps:
    
     - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: ['-c', 'echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY | sed 's/\\n/\n/g' >> .dbt_private_key']
-      secretEnv: ['DBT_PRIVATE_KEY']
+      args: ['-c', 'echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY >> .dbt_private_key']
 
     - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
@@ -47,7 +46,7 @@ availableSecrets:
   secretManager:
   - versionName: projects/974000444247/secrets/dbt_private_key_id/versions/1
     env: 'DBT_PRIVATE_KEY_ID'
-  - versionName: projects/974000444247/secrets/dbt_private_key/versions/4
+  - versionName: projects/974000444247/secrets/dbt_private_key/versions/1
     env: 'DBT_PRIVATE_KEY' 
   - versionName: projects/974000444247/secrets/dbt_metadata_api_token/versions/1
     env: 'DBT_METADATA_API_TOKEN'
