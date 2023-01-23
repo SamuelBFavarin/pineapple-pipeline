@@ -19,7 +19,6 @@ steps:
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
       args:
         - "run"
-        - "run"
         - "--env"
         - "DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID"
         - "-t"
