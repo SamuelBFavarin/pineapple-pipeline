@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: raw_github
+    database: prod-pineapple-pipeline
     tables:
       - name: commit
       - name: repository

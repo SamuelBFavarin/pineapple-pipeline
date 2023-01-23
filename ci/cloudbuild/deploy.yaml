@@ -1,34 +1,29 @@
 steps:
+
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'echo DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN >> .dbt_metadata_api_token']
+      secretEnv: ['DBT_METADATA_API_TOKEN']
+   
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'echo DBT_BQ_CREDENTIALS=$$DBT_BQ_CREDENTIALS >> .dbt_bq_credentials']
+      secretEnv: ['DBT_BQ_CREDENTIALS']
+
     - name: gcr.io/cloud-builders/docker
-      args:
+      args: 
           - "build"
           - "-t"
           - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
           - "--file=./Dockerfile"
-          - .
+          - .     
       timeout: 1200s
       id: Build Image
+
     - name: gcr.io/cloud-builders/docker
-      args:
-          - push
-          - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
-      id: Push Image to Registry
-    - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
-      args:
-          - run
-          - services
-          - update
-          - $_ENV_PREFIX-$_SERVICE_NAME
-          - "--platform=managed"
-          - "--image=$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
-          - "--project=$_DEPLOY_PROJECT_ID"
-          - "--service-account=$_SERVICE_ACCOUNT"
-          - >-
-              --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,service-name=data-pipeline-ci
-          - "--region=$_DEPLOY_REGION"
-          - "--quiet"
-      id: Deploy Image to Cloud Run Development
-      entrypoint: gcloud
+      entrypoint: 'bash'
+      args: ["-c", "docker run --env-file=.dbt_metadata_api_token --env-file=.dbt_bq_credentials -t $_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA --file=./Dockerfile ."]
+
 timeout: 1800s
 images:
     - "$_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"
@@ -37,12 +32,11 @@ options:
 substitutions:
     _GCR_HOSTNAME: gcr.io
     _SERVICE_NAME: data-pipeline-ci
-    _SERVICE_ACCOUNT: placeholder
-    _DEPLOY_REGION: us-east4
-    _ENV_PREFIX: "dev"
-    _PAPER_BUILD_PROJECT_ID: "pineapple-pipeline"
-    _DEPLOY_PROJECT_ID: "dev-pineapple-pipeline"
-tags:
-    - gcp-cloud-build-deploy-cloud-run
-    - gcp-cloud-build-deploy-cloud-run-managed
-    - pubsub-random-event-generator
+    _SERVICE_ACCOUNT: dbt-ci-service-account@dev-pineapple-pipeline.iam.gserviceaccount.com
+    _PAPER_BUILD_PROJECT_ID: "dev-pineapple-pipeline"
+availableSecrets:
+  secretManager:
+  - versionName: projects/974000444247/secrets/dbt_metadata_api_token/versions/1
+    env: 'DBT_METADATA_API_TOKEN'
+  - versionName: projects/974000444247/secrets/dbt_bq_credentials/versions/1
+    env: 'DBT_BQ_CREDENTIALS'

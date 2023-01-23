@@ -1,0 +1,16 @@
+# For more information on how to configure this file, please see:
+# https://docs.getdbt.com/docs/profile
+
+pineapple_dbt: # this needs to match the profile: in your dbt_project.yml file
+    target: ci
+    outputs:
+        ci:
+            type: bigquery
+            method: service-account-json
+            project: "{{ env_var('DBT_PROJECT') }}" # Replace this with your project ID
+            dataset: "{{ env_var('DBT_DEFAULT_DATASET') }}" # Replace this with dbt_your_name, e.g. dbt_bob
+            threads: 4
+            timeout_seconds: 600
+            location: US
+            priority: interactive
+            keyfile_json: "{{ env_var('DBT_BQ_CREDENTIALS') | as_native }}"
