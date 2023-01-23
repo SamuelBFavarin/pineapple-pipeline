@@ -26,6 +26,7 @@ ENV DBT_PROFILES_DIR=/app/
 ENV DBT_PRIVATE_KEY_ID=your-private-key-id
 ENV DBT_PRIVATE_KEY=your-private-key
 ENV DBT_METADATA_API_TOKEN=your-token
+ENV DBT_BQ_CREDENTIALS=your-credentials
 
 COPY . /app/
 

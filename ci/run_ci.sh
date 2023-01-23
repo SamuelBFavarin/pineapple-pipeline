@@ -28,6 +28,7 @@ echo "PRINT ENVS"
 echo "${DBT_PRIVATE_KEY_ID}"
 echo "${DBT_PRIVATE_KEY}"
 echo "${DBT_METADATA_API_TOKEN}"
+echo "${DBT_BQ_CREDENTIALS}"
 
 echo "----------------------------------------------"
 
