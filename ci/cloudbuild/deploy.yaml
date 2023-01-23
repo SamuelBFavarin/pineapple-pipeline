@@ -25,7 +25,7 @@ steps:
 
     - name: gcr.io/cloud-builders/docker
       secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
-      args: ["-c", "run --env DBT_METADATA_API_TOKEN=$DBT_METADATA_API_TOKEN -t $_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"]
+      args: ["-c", "run --env DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN -t $_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA"]
 
 timeout: 1800s
 images:
