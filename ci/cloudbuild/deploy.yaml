@@ -1,11 +1,28 @@
 steps:
     - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: ['-c', 'echo DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID && echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY && echo DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN']
-      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
+      args: ['-c', 'echo DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID >> .dbt_private_key_id']
+      secretEnv: ['DBT_PRIVATE_KEY_ID']
+
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'echo DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN >> .dbt_metadata_api_token']
+      secretEnv: ['DBT_METADATA_API_TOKEN']
+   
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'echo DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY >> .dbt_private_key']
+      secretEnv: ['DBT_PRIVATE_KEY']
+
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'ls']
+
+    - name: 'gcr.io/cloud-builders/docker'
+      entrypoint: 'bash'
+      args: ['-c', 'cat .dbt_private_key']
 
     - name: gcr.io/cloud-builders/docker
-      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
       args: 
           - "build"
           - "-t"
@@ -17,8 +34,7 @@ steps:
 
     - name: gcr.io/cloud-builders/docker
       entrypoint: 'bash'
-      args: ["-c", "docker run --env 'DBT_PRIVATE_KEY_ID=$$DBT_PRIVATE_KEY_ID' --env 'DBT_PRIVATE_KEY=$$DBT_PRIVATE_KEY' -env 'DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN' -t gcr.io/dev-pineapple-pipeline/pineapple-pipeline/data-pipeline-ci:4a0fa9b --file=./Dockerfile ."]
-      secretEnv: ['DBT_PRIVATE_KEY_ID', 'DBT_PRIVATE_KEY', 'DBT_METADATA_API_TOKEN']
+      args: ["-c", "docker run --env-file=.dbt_private_key_id --env-file=.dbt_metadata_api_token --env-file=.dbt_private_key -t $_GCR_HOSTNAME/$_PAPER_BUILD_PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$SHORT_SHA --file=./Dockerfile ."]
 
 timeout: 1800s
 images:
