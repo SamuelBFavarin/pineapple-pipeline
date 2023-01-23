@@ -40,3 +40,8 @@ dbt test --defer --state ./
 
 echo "All tests finished"
 echo "----------------------------------------------"
+
+echo "Check dbt debug"
+echo "----------------------------------------------"
+
+dbt debug
