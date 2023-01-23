@@ -6,10 +6,6 @@ steps:
 
     - name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: ['-c', "ENV DBT_METADATA_API_TOKEN=$$DBT_METADATA_API_TOKEN"]
-
-    - name: 'gcr.io/cloud-builders/docker'
-      entrypoint: 'bash'
       args: ['-c', "chmod +x ./ci/set_secrets.sh"]
 
     - name: 'gcr.io/cloud-builders/docker'
