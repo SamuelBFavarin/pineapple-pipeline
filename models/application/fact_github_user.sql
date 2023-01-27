@@ -26,8 +26,7 @@ WITH user_repo_metrics AS (
 user_commit_metrics AS (
   SELECT 
     u.id AS id_user,
-    COUNT(c.sha) AS total_commits,
-
+    COUNT(c.sha) AS total_commits
   FROM {{ source('raw_github', 'user') }} AS u
   INNER JOIN {{ source('raw_github', 'user_email') }} AS ue
     ON ue.user_id = u.id
