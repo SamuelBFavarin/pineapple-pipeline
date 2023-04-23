@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw_nutrisense
+    database: prod-pineapple-pipeline
+    tables:
+      - name: active_members
+      - name: new_members
+      - name: subscriptions
