@@ -25,12 +25,13 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 models:
-  bronze:
-    +schema: bronze
-  gold:
-    +schema: gold
-  silver:
-    +schema: silver
+  pineapple:
+    bronze:
+      +schema: bronze
+    gold:
+      +schema: gold
+    silver:
+      +schema: silver
 
 
 
