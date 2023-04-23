@@ -26,10 +26,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   pipeline:
-    application:
-      +schema: application
-    raw:
-      +schema: raw
+    gold:
+      +schema: gold
+    bronze:
+      +schema: bronze
+    silver:
+      +schema: silver
 
 
 
